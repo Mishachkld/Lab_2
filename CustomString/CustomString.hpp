@@ -16,7 +16,9 @@ namespace cs {
 
         ///Functions
         void outString() const;
-        int getSize();
+        int length();
+
+        CustomString& operator=(const CustomString& other);
     private:
         char* _string;
         int _size;
