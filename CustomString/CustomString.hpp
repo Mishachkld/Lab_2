@@ -2,15 +2,23 @@
 // Created by Mishach on 14.02.2023.
 //
 #pragma once
+#include <iostream>
+#include<cstring>
 #define SIZE_STRING
-namespace ms {
-
+namespace cs {
     class CustomString {
     public:
-        CustomString();
+        ///Constructors
+        CustomString(char &symbol, int &size); // №1
+        CustomString(const CustomString  &other); // №2
+        CustomString(char *str); // №3
         ~CustomString();
-    private:
-        char string[SIZE_STRING];
-    };
 
-} // ms
+        ///Functions
+        void outString() const;
+        int getSize();
+    private:
+        char* _string;
+        int _size;
+    };
+} // cs
