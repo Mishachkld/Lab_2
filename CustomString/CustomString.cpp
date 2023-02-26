@@ -8,16 +8,11 @@ namespace cs {
     /// Конструктор 1
     CustomString::CustomString(char &symbol, int &size) : _size(size), _string(new char[size]) {
         std::fill(_string, _string + _size, symbol);
-//        _string[_size] = 0;
-
-        /*for (int i = 0; i < size; i++)
-                _string[i] = symbol;*/
     }
 
     ///Конструктор копирования   (!!!)
     CustomString::CustomString(char *str) : _string(str), _size(strlen(str)) {
         std::copy(str, str + _size, _string);
-//        _string[_size]; /// костыль
 
     }
 
@@ -51,6 +46,7 @@ namespace cs {
         return *this;
     }
 
+
     int CustomString::find(const char &a) {
         int index = -1;
         for (int i = 0; i < _size; i++) {
@@ -65,20 +61,54 @@ namespace cs {
     char *CustomString::c_str() {
         return _string;
     }
-    /// Возвращает ссылку на i-ый элемент. В противном случае возвращает костыль :)
-    char& CustomString::at(const int i) {
+
+    /// Возвращает ссылку на i-ый элемент. В противном случае возвращает char :)
+    char &CustomString::at(const int i) {
         if ((i >= 0) and (i < _size))
             return _string[i];
-        std::cout << "Errorr..."<< std::endl;
-        return exceptionChar;
+        std::cout << "Errorr..." << std::endl;
+        return exceptionChar;   /// костыль
 
-       /* try {
-            return _string[i];
-        }
-        catch(const std::out_of_range& e){
-            return exceptionChar;
-            std::cout << e.what() << std::endl;
-        }*/
+        /* try {
+             return _string[i];
+         }
+         catch(const std::out_of_range& e){
+             return exceptionChar;
+             std::cout << e.what() << std::endl;
+         }*/
 
     }
+
+//    CustomString &CustomString::operator+(const CustomString &other) {
+//        CustomString temp = other;
+//
+//        return *this;
+//    }
+
+    CustomString::CustomString(char *str1, char *str2, int sizeFirst, int sizeSecond) : _size(sizeFirst + sizeSecond) {
+
+
+    }
+
+
+
+    bool CustomString::operator<(const CustomString &other) const {
+        if (_size < other._size)
+            return true;
+        return false;
+    }
+
+    bool CustomString::operator>(const CustomString &other) const {
+        if (_size > other._size)
+            return true;
+        return false;
+    }
+
+    bool CustomString::operator==(const CustomString &other) const {
+        if (_size == other._size)
+            return true;
+        return false;
+    }
+
+
 } // cs
