@@ -12,7 +12,6 @@ namespace cs {
         CustomString(char &symbol, int &size); // №1
         CustomString(const CustomString  &other); // №2
         CustomString(char *str); // №3
-        CustomString(char *str1, char *str2, int sizeFirst, int sizeSecond);
         ~CustomString();
 
         ///Functions
@@ -24,6 +23,7 @@ namespace cs {
 
         CustomString& operator=(const CustomString& other);
         CustomString operator+(const CustomString& other);
+        CustomString& operator+=(const CustomString& other);
         bool operator==(const CustomString& other) const ;
         bool operator>(const CustomString& other) const;
         bool operator<(const CustomString& other) const;

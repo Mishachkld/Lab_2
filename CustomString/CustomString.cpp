@@ -38,13 +38,6 @@ namespace cs {
         return _size;
     }
 
-    CustomString &CustomString::operator=(const CustomString &other) {
-        CustomString temp = other;
-        std::swap(temp._string, _string);
-        std::swap(temp._size, _size);
-        std::copy(other._string, other._string + other._size, _string);
-        return *this;
-    }
 
 
     int CustomString::find(const char &a) {
@@ -79,14 +72,13 @@ namespace cs {
 
     }
 
-
-
-    CustomString::CustomString(char *str1, char *str2, int sizeFirst, int sizeSecond) : _size(sizeFirst + sizeSecond) {
-
-
+    CustomString &CustomString::operator=(const CustomString &other) {
+        CustomString temp = other;
+        std::swap(temp._string, _string);
+        std::swap(temp._size, _size);
+        std::copy(other._string, other._string + other._size, _string);
+        return *this;
     }
-
-
 
     bool CustomString::operator<(const CustomString &other) const {
         bool result = false;
@@ -122,12 +114,23 @@ namespace cs {
     }
 
     CustomString CustomString::operator+(const CustomString &other) {
-        CustomString newString = other;
+        CustomString newString = other;   /// как можно сделать лучше?
         newString._size = _size + other._size;
         newString._string = new char[newString._size];
         std::copy(_string, _string + _size, newString._string);
         std::copy(other._string, other._string + other._size, newString._string + _size);
         return newString;
+    }
+
+    CustomString& CustomString::operator+=(const CustomString &other) {
+        int size = other._size + _size;
+        char* backup = _string;
+        delete[] _string;
+        _string = new char[_size];
+        std::copy(backup, backup + _size, _string);
+        std::copy(other._string, other._string + other._size, _string + _size);
+        _size = size;
+        return *this;
     }
 
 
