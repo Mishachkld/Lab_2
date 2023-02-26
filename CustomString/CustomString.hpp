@@ -23,13 +23,13 @@ namespace cs {
         char& at(int i);
 
         CustomString& operator=(const CustomString& other);
-//        CustomString operator+(const CustomString& other);
+        CustomString operator+(const CustomString& other);
         bool operator==(const CustomString& other) const ;
         bool operator>(const CustomString& other) const;
         bool operator<(const CustomString& other) const;
     private:
         char* _string;
         int _size;
-        char exceptionChar = '0'; /// костыль
+        char exceptionChar = '-'; /// костыль
     };
 } // cs

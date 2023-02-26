@@ -62,7 +62,7 @@ namespace cs {
         return _string;
     }
 
-    /// Возвращает ссылку на i-ый элемент. В противном случае возвращает char :)
+    /// Возвращает ссылку на i-ый элемент. В противном случае возвращает char == '-' (костыль) :)
     char &CustomString::at(const int i) {
         if ((i >= 0) and (i < _size))
             return _string[i];
@@ -79,11 +79,7 @@ namespace cs {
 
     }
 
-//    CustomString &CustomString::operator+(const CustomString &other) {
-//        CustomString temp = other;
-//
-//        return *this;
-//    }
+
 
     CustomString::CustomString(char *str1, char *str2, int sizeFirst, int sizeSecond) : _size(sizeFirst + sizeSecond) {
 
@@ -93,21 +89,45 @@ namespace cs {
 
 
     bool CustomString::operator<(const CustomString &other) const {
+        bool result = false;
         if (_size < other._size)
-            return true;
-        return false;
+            result = true;
+        else if(_size == other._size)
+            for (int i = 0; i < _size; ++i)
+                if((int)_string[i] < (int)other._string[i])
+                    result = true;
+        return result;
     }
 
     bool CustomString::operator>(const CustomString &other) const {
+        bool result = false;
         if (_size > other._size)
-            return true;
-        return false;
+            result = true;
+        else if(_size == other._size)
+            for (int i = 0; i < _size; ++i)
+                if((int)_string[i] > (int)other._string[i])
+                    result = true;
+        return result;
     }
 
     bool CustomString::operator==(const CustomString &other) const {
-        if (_size == other._size)
-            return true;
-        return false;
+        bool result = true;
+        if (_size != other._size)
+            result = false;
+        else if(_size == other._size)
+            for (int i = 0; i < _size; ++i)
+                if((int)_string[i] != (int) other._string[i])
+                    result = false;
+        return result;
+    }
+
+    CustomString CustomString::operator+(const CustomString &other) {
+        CustomString newString = other;
+        newString._size = _size + other._size;
+        newString._string = new char[newString._size];
+        std::copy(_string, _string + _size, newString._string);
+        std::copy(other._string, other._string + other._size, newString._string + _size);
+        return newString;
     }
 
 
