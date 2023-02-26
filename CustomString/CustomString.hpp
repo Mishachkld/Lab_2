@@ -17,10 +17,14 @@ namespace cs {
         ///Functions
         void outString() const;
         int length();
+        int find(const char &a);
+        char* c_str();
+        char& at(int i);
 
         CustomString& operator=(const CustomString& other);
     private:
         char* _string;
         int _size;
+        char exceptionChar = '0'; /// костыль
     };
 } // cs
