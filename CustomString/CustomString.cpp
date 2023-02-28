@@ -39,7 +39,6 @@ namespace cs {
     }
 
 
-
     int CustomString::find(const char &a) {
         int index = -1;
         for (int i = 0; i < _size; i++) {
@@ -59,7 +58,7 @@ namespace cs {
     char &CustomString::at(const int i) {
         if ((i >= 0) and (i < _size))
             return _string[i];
-        std::cout << "Errorr..." << std::endl;
+        outMessageError();
         return exceptionChar;   /// костыль
 
         /* try {
@@ -68,6 +67,7 @@ namespace cs {
          catch(const std::out_of_range& e){
              return exceptionChar;
              std::cout << e.what() << std::endl;
+             outMessageError();
          }*/
 
     }
@@ -84,9 +84,9 @@ namespace cs {
         bool result = false;
         if (_size < other._size)
             result = true;
-        else if(_size == other._size)
+        else if (_size == other._size)
             for (int i = 0; i < _size; ++i)
-                if((int)_string[i] < (int)other._string[i])
+                if ((int) _string[i] < (int) other._string[i])
                     result = true;
         return result;
     }
@@ -95,9 +95,9 @@ namespace cs {
         bool result = false;
         if (_size > other._size)
             result = true;
-        else if(_size == other._size)
+        else if (_size == other._size)
             for (int i = 0; i < _size; ++i)
-                if((int)_string[i] > (int)other._string[i])
+                if ((int) _string[i] > (int) other._string[i])
                     result = true;
         return result;
     }
@@ -106,9 +106,9 @@ namespace cs {
         bool result = true;
         if (_size != other._size)
             result = false;
-        else if(_size == other._size)
+        else if (_size == other._size)
             for (int i = 0; i < _size; ++i)
-                if((int)_string[i] != (int) other._string[i])
+                if ((int) _string[i] != (int) other._string[i])
                     result = false;
         return result;
     }
@@ -122,15 +122,38 @@ namespace cs {
         return newString;
     }
 
-    CustomString& CustomString::operator+=(const CustomString &other) {
+    CustomString &CustomString::operator+=(const CustomString &other) {
         int size = other._size + _size;
-        char* backup = _string;
+        char *backup = _string;
         delete[] _string;
         _string = new char[_size];
         std::copy(backup, backup + _size, _string);
         std::copy(other._string, other._string + other._size, _string + _size);
         _size = size;
         return *this;
+    }
+
+    char &CustomString::operator[](const int &symbol) {
+        if ((symbol < _size) and (symbol >= 0))
+            return _string[symbol];
+        outMessageError();
+        return exceptionChar;   /// костыль
+    }
+
+    void CustomString::outMessageError() {
+        std::cout << "Errorrr..." << std::endl;
+    }
+
+    std::ostream &operator<<(std::ostream &outStream, const CustomString &other) {
+        for (int i = 0; i < other._size; i++)
+            outStream << other._string[i];
+        return outStream;
+    }
+
+    std::istream& operator >> (std::istream& inputStream, CustomString& other) {
+        for (int i = 0; i < other._size; i++)
+            inputStream >> other._string[i];
+        return inputStream;
     }
 
 

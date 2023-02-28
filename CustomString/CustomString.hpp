@@ -21,15 +21,24 @@ namespace cs {
         char* c_str();
         char& at(int i);
 
+        /// overrated
         CustomString& operator=(const CustomString& other);
         CustomString operator+(const CustomString& other);
         CustomString& operator+=(const CustomString& other);
+        char& operator[](const int& symbol);
         bool operator==(const CustomString& other) const ;
         bool operator>(const CustomString& other) const;
         bool operator<(const CustomString& other) const;
+
     private:
+        friend std::ostream& operator << (std::ostream& ostream, const CustomString& other);
+        friend std::istream& operator >> (std::istream& inputStream,  CustomString& other);
         char* _string;
         int _size;
         char exceptionChar = '-'; /// костыль
+
+        ///Functions
+        void outMessageError();
+
     };
 } // cs

@@ -9,13 +9,13 @@ int main() {
     string.at(6) = 'x';
 
 //    string1 = string;
-    string.outString();
-    string1.outString();
-
+//    string1.outString();
+    string[6] = 'g';
     cs::CustomString newStr = string + string1;
     newStr += string;
-    newStr.outString();
     std::cout << (string1 == string) << std::endl;
+    std::cin >> string1;
+    std::cout << string1;
     std::cout << string1.find('7') << " " << string1.find('l') <<" " << string.c_str()[0] << " " << (string1 < string) << " ";
     return 0;
 }
